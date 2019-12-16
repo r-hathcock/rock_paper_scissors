@@ -7,8 +7,68 @@
 </head>
 <body>
     <script>
-        var playerSelection = prompt("Choose rock, paper, or scissors");
+        game();
 
+        /** 
+        * Plays 5 rounds of rock, paper, scissors and returns the winner
+        * @return {string} winner
+        */ 
+        function game() {
+            var playerWins = 0;
+            var computerWins = 0;
+
+            for (let i = 0; i < 5; i++)
+            {
+                var playerSelection = prompt("Choose rock, paper, or scissors").toLowerCase();
+                var computerSelection = computerPlay();
+                var roundResult = playRound(playerSelection, computerSelection);
+
+                console.log("Round " + (i + 1));
+                console.log("Player chose: " + playerSelection);
+                console.log("Computer chose: " + computerSelection);
+
+
+                if (roundResult === 'player')
+                {
+                    console.log("Player gets a point!");
+                    playerWins++;
+                }    
+                else if (roundResult === 'computer')
+                {
+                    console.log("Computer gets a point!");
+                    computerWins++;
+                }
+                else 
+                    console.log("It's a tie. No points given.");
+                    
+                console.log("Player score: " + playerWins);
+                console.log("Computer score: " + computerWins);
+            }
+
+            if (playerWins > computerWins)
+            {
+                console.log("Final score");
+                console.log("Player: " + playerWins + " Computer: " + computerWins);
+                console.log("Player wins!!!");
+            }
+            else if (computerWins > playerWins)
+            {
+                console.log("Final score");
+                console.log("Player: " + playerWins + " Computer: " + computerWins);
+                console.log("Computer wins!!!");
+            }
+            else
+            {
+                console.log("Final score");
+                console.log("Player: " + playerWins + " Computer: " + computerWins);
+                console.log("It's a tie :(");
+            }
+        }
+
+        /**
+        * Returns randomely chosen computer RPS play
+        * @return {string} rock, paper, or scissors
+        */
         function computerPlay() {
             var computerSelection = '';
             var randNum = Math.floor(Math.random() * 3);
@@ -28,11 +88,40 @@
             return computerSelection;
         }
 
-        console.log(computerPlay());
-        console.log(playerSelection);
-        // plays a single round of RPS using the players selection and the computer's selection
+        /**
+        * Plays a round of RPS and returns the result
+        * @param {string} playerSelection 
+        * @param {string} computerSelection
+        * @return {string} the winner or tie
+        */
         function playRound(playerSelection, computerSelection) {
-            
+            if (playerSelection === 'rock')
+            {
+                if (computerSelection === 'paper')
+                    return 'computer';
+                else if (computerSelection === 'scissors')
+                    return 'player';
+                else   
+                    return 'tie';
+            }
+            else if (playerSelection === 'paper')
+            {
+                if (computerSelection === 'paper')
+                    return 'tie';
+                else if (computerSelection === 'scissors')
+                    return 'computer';
+                else   
+                    return 'player';
+            }
+            else (playerSelection === 'scissors')
+            {
+                if (computerSelection === 'paper')
+                    return 'player';
+                else if (computerSelection === 'scissors')
+                    return 'tie';
+                else   
+                    return 'computer';
+            }
         }
     </script>
 </body>
